@@ -105,7 +105,7 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
 # ==================== 数据库连接配置 ====================
-DB_PATH = "./local_data/financial.db" 
+DB_PATH = "./local_data/financial_data.db"
 
 def get_db_connection():
     """建立数据库连接 (私有辅助函数)"""
@@ -230,10 +230,14 @@ async def get_financial_data(company: str, year: str) -> str:
         query = f"请提取{company}{year}年的财务数据"
         response = ""
         
+        # 收集所有消息，获取最终完整的响应
         async for msg in financial_agent.run_stream(task=query):
             if isinstance(msg, TextMessage):
                 response = msg.content
-                break
+                # 不要break，继续收集所有消息直到完成
+        
+        if not response:
+            return f"❌ 财务数据提取失败: 未收到有效响应"
         
         return response
         
@@ -330,10 +334,14 @@ async def get_text_data(company: str, year: str) -> str:
         query = f"请分析以下{company}{year}年的年报文本内容：\n\n{raw_text}"
         response = ""
         
+        # 收集所有消息，获取最终完整的响应
         async for msg in text_agent.run_stream(task=query):
             if isinstance(msg, TextMessage):
                 response = msg.content
-                break
+                # 不要break，继续收集所有消息直到完成
+        
+        if not response:
+            return f"❌ 文本数据提取失败: 未收到有效响应"
         
         return response
         
