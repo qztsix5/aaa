@@ -205,3 +205,9 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Swarm agent runtime files
+swarm_with_agent/reports/
+swarm_with_agent/charts/
+swarm_with_agent/user_uploads/
+swarm_with_agent/system_run.log
