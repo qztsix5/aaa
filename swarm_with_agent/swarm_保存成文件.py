@@ -105,7 +105,7 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 
 # ==================== 数据库连接配置 ====================
-DB_PATH = "./local_data/financial.db" 
+DB_PATH = "./local_data/financial_data.db"
 
 def get_db_connection():
     """建立数据库连接 (私有辅助函数)"""
